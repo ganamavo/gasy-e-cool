@@ -2,8 +2,8 @@ import { createContext, useReducer, useEffect } from 'react';
 
 interface StateNames {
     loading: boolean;
-    allCountries?: []; 
-  }
+    allCountries?:[]; 
+}
    
 const initialValues: StateNames = {
     loading: true,
