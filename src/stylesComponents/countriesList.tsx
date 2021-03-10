@@ -5,7 +5,7 @@ const Container = styled.div`
 const Flag = styled.img` 
     max-width: 100%;
 `;
-const CountryName = styled.h2`
+const CountryName = styled.h3`
     font-size: 28px;
     font-weight: 600;
 `;

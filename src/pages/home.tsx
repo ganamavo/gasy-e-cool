@@ -33,9 +33,8 @@ export const Home = () => {
         const method = param.name === 'search' ? setSearch : setRegion;
         method(param.value);
     }
-
     const filteredCountries = allCountries.filter(({ name }) => search === '' || name.toLowerCase().includes(search.toLowerCase())).filter((country) => region === '' || country.region.toLowerCase() === region);
-
+ 
     const countriesEl = loading ?
         <div className="loading">Loading...</div>
         :
@@ -50,12 +49,12 @@ export const Home = () => {
 
     return (
         <Section>
-            <SectionContainer>
-                <Filters
+              <Filters
                     search={search}
                     region={region}
                     filterFunction={setFilter}
                 />
+            <SectionContainer>
                 {countriesEl}
             </SectionContainer>
         </Section>

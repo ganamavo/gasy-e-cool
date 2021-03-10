@@ -28,6 +28,7 @@ import { createContext, useReducer, useEffect, useState } from 'react';
     borders: string[];
     nativeName: string;
     numericCode: string; 
+    cioc: string;
 }
 interface StateNames {
     loading: boolean;
@@ -53,13 +54,18 @@ const GlobalContext = createContext(initialValues);
 
 const GlobalProvider: React.FC = ({children}) => { 
     const [ state, dispatch ] = useReducer(reducer, initialValues); 
-
     const fetchCountries = async () => {
         const res = await fetch("https://restcountries.eu/rest/v2/all");
         const countryData = await res.json()
         dispatch({type: "GET_COUNTRIES", allCountries: countryData})
     } 
  
+
+    useEffect(() => {
+         fetchCountries();
+    }, [])
+ 
+
     return <GlobalContext.Provider value={{
         loading: state.loading,
         allCountries: state.allCountries, 

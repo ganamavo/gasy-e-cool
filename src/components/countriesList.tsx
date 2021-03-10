@@ -9,7 +9,7 @@ import {
     Frame,
     BoldText,
     SimpleText
-} from '../stylesComponents/allCountries';
+} from '../stylesComponents/countriesList';
 
 type Props = {
     flag: string;
@@ -17,6 +17,7 @@ type Props = {
     population: number;
     region: string;
     capital: string;  
+    alpha3Code: string;
 }
 
 export const AllCountries: React.FC<Props> = ({
@@ -24,10 +25,11 @@ export const AllCountries: React.FC<Props> = ({
     name,
     population,
     region,
-    capital 
+    capital,
+    alpha3Code
     }) => {
     return (
-        <Link to={`/${name}`}>
+        <Link to={`/${alpha3Code}`}>
         <Container>
             <FlagContainer>
                 <Flag src={flag} alt={`${name}'s flag`} className="Flag" />

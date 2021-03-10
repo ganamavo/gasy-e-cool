@@ -6,7 +6,10 @@ import {
 } from '../components/Styled';
 
 export const StyledFilters = styled.div`
+  max-width: 1114px;
   margin: 1em 0;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const StyledFiltersMaxCenter = styled.div`

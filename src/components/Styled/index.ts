@@ -42,11 +42,4 @@ export const Container = styled.main`
   box-shadow: 0 7px 9px -7px rgba(0, 0, 0, .5) inset;
   min-height: 100vh;
 `;
-
-export const Info = styled.div`
-  color: var(--cardText);
-  font-weight: bold;
-  text-align: center;
-  margin: 5em 0;
-  font-size: 1.5rem;
-`;
+ 
