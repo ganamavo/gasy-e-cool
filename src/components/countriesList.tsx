@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     Container,
     Flag,
@@ -15,7 +16,7 @@ type Props = {
     name: string;
     population: number;
     region: string;
-    capital: string;
+    capital: string;  
 }
 
 export const AllCountries: React.FC<Props> = ({
@@ -26,6 +27,7 @@ export const AllCountries: React.FC<Props> = ({
     capital 
     }) => {
     return (
+        <Link to={`/${name}`}>
         <Container>
             <FlagContainer>
                 <Flag src={flag} alt={`${name}'s flag`} className="Flag" />
@@ -60,5 +62,6 @@ export const AllCountries: React.FC<Props> = ({
                 </Frame>
             </Article>
         </Container>
+        </Link>
     )
 }

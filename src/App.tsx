@@ -1,14 +1,19 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch} from 'react-router-dom';
+import { Switch, Route} from 'react-router-dom';
 import { GlobalProvider } from './components/GlobalState';
 import { Home } from './pages/home';
- 
+import { CountryDetails } from './pages/countryDetails';
 const App = () => {
   return (
     <GlobalProvider>
-      <div className="App">
-        <Home />
-      </div>
+      <Switch> 
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/:countryName">
+            <CountryDetails />
+        </Route>
+      </Switch>
     </GlobalProvider>
   );
 }

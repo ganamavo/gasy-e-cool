@@ -1,9 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { GlobalContext } from '../components/GlobalState';
-import { AllCountries } from '../components/allCountries';
+import Filters from '../components/Filters';
+import { AllCountries } from '../components/countriesList';
 
-const Section = styled.section``;
+const Section = styled.section`
+    a {
+        text-decoration: none;
+    }
+`;
 const SectionContainer = styled.div`
     max-width: 1114px;
     margin-top: 32px;
@@ -19,18 +24,38 @@ const SectionContainer = styled.div`
     }
 `;
 
-type Props = {
-    key: string
-}
 export const Home = () => {
     const { loading, allCountries } = useContext(GlobalContext);
-    console.log(allCountries)
-    const countriesEl = loading ? <div>Loading...</div> : allCountries?.map(country => {
-        return <AllCountries   {...country} />
-    })
+    const [search, setSearch] = useState<string>('');
+    const [region, setRegion] = useState<string>('');
+
+    const setFilter = (param: { name: string, value: string }) => {
+        const method = param.name === 'search' ? setSearch : setRegion;
+        method(param.value);
+    }
+
+    const filteredCountries = allCountries.filter(({ name }) => search === '' || name.toLowerCase().includes(search.toLowerCase())).filter((country) => region === '' || country.region.toLowerCase() === region);
+
+    const countriesEl = loading ?
+        <div className="loading">Loading...</div>
+        :
+        !loading && filteredCountries.length < 1
+            ?
+            <div className="result"> No result found </div>
+            :
+            filteredCountries?.map(country => {
+                return <AllCountries key={country.name}  {...country} />
+            })
+
+
     return (
         <Section>
             <SectionContainer>
+                <Filters
+                    search={search}
+                    region={region}
+                    filterFunction={setFilter}
+                />
                 {countriesEl}
             </SectionContainer>
         </Section>
