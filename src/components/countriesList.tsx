@@ -16,7 +16,7 @@ type Props = {
     name: string;
     population: number;
     region: string;
-    capital: string;  
+    capital: string;
     alpha3Code: string;
 }
 
@@ -27,20 +27,21 @@ export const AllCountries: React.FC<Props> = ({
     region,
     capital,
     alpha3Code
-    }) => {
+}) => {
     return (
-        <Link to={`/${alpha3Code}`}>
         <Container>
-            <FlagContainer>
-                <Flag src={flag} alt={`${name}'s flag`} className="Flag" />
-            </FlagContainer>
+            <Link to={`/${alpha3Code}`}>
+                <FlagContainer>
+                    <Flag src={flag} alt={`${name}'s flag`} className="Flag" />
+                </FlagContainer>
+            </Link>
             <Article>
                 <CountryName>
                     {name}
                 </CountryName>
                 <Frame>
                     <BoldText>
-                        Population: 
+                        Population:
                     </BoldText>
                     <SimpleText>
                         {population}
@@ -48,7 +49,7 @@ export const AllCountries: React.FC<Props> = ({
                 </Frame>
                 <Frame>
                     <BoldText>
-                        Region: 
+                        Region:
                     </BoldText>
                     <SimpleText>
                         {region}
@@ -56,7 +57,7 @@ export const AllCountries: React.FC<Props> = ({
                 </Frame>
                 <Frame>
                     <BoldText>
-                        Capital: 
+                        Capital:
                     </BoldText>
                     <SimpleText>
                         {capital}
@@ -64,6 +65,5 @@ export const AllCountries: React.FC<Props> = ({
                 </Frame>
             </Article>
         </Container>
-        </Link>
     )
 }

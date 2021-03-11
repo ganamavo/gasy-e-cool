@@ -34,7 +34,7 @@ export const Home = () => {
         method(param.value);
     }
     const filteredCountries = allCountries.filter(({ name }) => search === '' || name.toLowerCase().includes(search.toLowerCase())).filter((country) => region === '' || country.region.toLowerCase() === region);
- 
+    console.log(filteredCountries);
     const countriesEl = loading ?
         <div className="loading">Loading...</div>
         :

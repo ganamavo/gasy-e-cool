@@ -43,3 +43,14 @@ export const Container = styled.main`
   min-height: 100vh;
 `;
  
+export const GlobalStyles = createGlobalStyle`
+  html, body {
+    padding: 0;
+    margin: 0;
+    background-color: var(appBG);
+    padding-bottom: 48px;
+    button {
+      cursor: pointer;
+    }
+  }
+`

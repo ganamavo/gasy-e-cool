@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react' 
 import {
     Header,
     Container,
@@ -8,14 +8,17 @@ import {
     Span,
 } from '../stylesComponents/header';
 export const HeaderComponent = () => {
+    const [isLight, setTheme] = useState(true);
+    const toggleTheme = () => setTheme(!isLight);
+
     return (
-        <Header>
+        <Header> 
             <Container>
                 <Title>
                     Where in the world?
                 </Title>
                 <ButtonContainer>
-                    <Button>
+                    <Button onClick={toggleTheme}>
                         <Span>
                             Mode
                         </Span>
