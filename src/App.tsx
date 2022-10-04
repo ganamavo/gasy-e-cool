@@ -1,12 +1,15 @@
 import React from 'react';
-import { Switch, Route} from 'react-router-dom';
+import { Box } from '@mui/material';
 import Header from './components/Header';
 
 const App = () => {
   return (
-    <div>
-       <Header />
-    </div>
+    <Box>
+      <Header/>
+      <Box sx={{background: '#f2f3f8'}}>
+
+      </Box>
+    </Box>
   );
 }
 
