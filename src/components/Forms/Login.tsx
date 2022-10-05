@@ -15,18 +15,6 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
-
-let easing = [0.6, -0.05, 0.01, 0.99];
-const animate = {
-  opacity: 1,
-  y: 0,
-  transition: {
-    duration: 0.6,
-    ease: easing,
-    delay: 0.16,
-  },
-};
 
 const LoginForm = ({ setAuth } : { setAuth: any}) => {
   const navigate = useNavigate();
@@ -50,9 +38,7 @@ const LoginForm = ({ setAuth } : { setAuth: any}) => {
     },
     validationSchema: LoginSchema,
     onSubmit: () => {
-      console.log("submitting...");
       setTimeout(() => {
-        console.log("submited!!");
         setAuth(true);
         navigate(from, { replace: true });
       }, 2000);
@@ -65,23 +51,13 @@ const LoginForm = ({ setAuth } : { setAuth: any}) => {
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Box
-          component={motion.div}
-          animate={{
-            transition: {
-              staggerChildren: 0.55,
-            },
-          }}
-        >
+        <Box>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               gap: 3,
             }}
-            component={motion.div}
-            initial={{ opacity: 0, y: 40 }}
-            animate={animate}
           >
             <TextField
               fullWidth
@@ -119,11 +95,7 @@ const LoginForm = ({ setAuth } : { setAuth: any}) => {
             />
           </Box>
 
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            animate={animate}
-          >
+          <Box>
             <Stack
               direction="row"
               alignItems="center"

@@ -5,8 +5,7 @@ import styled from "@emotion/styled";
 
 import SocialAuth from "../Forms/SocialAuth";
 import SignupForm from "../Forms/Signup";
-import Logo from "../Forms/Logo";
-import { motion } from "framer-motion";
+import Logo from "../Forms/Logo"; 
 
 const RootStyle = styled("div")({
   background: "rgb(249, 250, 251)",
@@ -51,7 +50,7 @@ const Signup = ({ setAuth }: {setAuth: any}) => {
     <RootStyle>
       <Container maxWidth="sm">
         <ContentStyle>
-          <HeadingStyle component={motion.div} {...fadeInUp}>
+          <HeadingStyle {...fadeInUp}>
             <Logo />
 
             <Typography sx={{ color: "text.secondary", mb: 5 }}>
@@ -59,11 +58,11 @@ const Signup = ({ setAuth }: {setAuth: any}) => {
             </Typography>
           </HeadingStyle>
 
-          <Box component={motion.div} {...fadeInUp}>
+          <Box {...fadeInUp}>
             <SocialAuth />
           </Box>
 
-          <Divider sx={{ my: 3 }} component={motion.div} {...fadeInUp}>
+          <Divider sx={{ my: 3 }} {...fadeInUp}>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               OR
             </Typography>
@@ -72,7 +71,6 @@ const Signup = ({ setAuth }: {setAuth: any}) => {
           <SignupForm setAuth={setAuth} />
 
           <Typography
-            component={motion.p}
             {...fadeInUp}
             variant="body2"
             align="center"
@@ -89,7 +87,6 @@ const Signup = ({ setAuth }: {setAuth: any}) => {
           </Typography>
 
           <Typography
-            component={motion.p}
             {...fadeInUp}
             variant="body2"
             align="center"

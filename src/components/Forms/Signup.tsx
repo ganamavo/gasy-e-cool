@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
@@ -67,9 +66,7 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <Stack
-            component={motion.div}
-            initial={{ opacity: 0, y: 60 }}
-            animate={animate}
+            display='flex'
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
           >
@@ -90,12 +87,7 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
             />
           </Stack>
 
-          <Stack
-            spacing={3}
-            component={motion.div}
-            initial={{ opacity: 0, y: 40 }}
-            animate={animate}
-          >
+          <Stack spacing={3}>
             <TextField
               fullWidth
               autoComplete="username"
@@ -133,11 +125,7 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
             />
           </Stack>
 
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            animate={animate}
-          >
+          <Box>
             <LoadingButton
               fullWidth
               size="large"

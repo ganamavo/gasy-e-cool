@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Stack, Button, IconButton } from "@mui/material";
+import { Stack, IconButton } from "@mui/material";
 
 const SocialAuth = () => {
   return (

@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import LoginForm from "../Forms/Login";
 import SocialAuth from "../Forms/SocialAuth";
 import Logo from "../Forms/Logo";
-import { motion } from "framer-motion";
 
 const RootStyle = styled("div")({
   background: "rgb(249, 250, 251)",
@@ -50,18 +49,18 @@ const Login = ({ setAuth } : { setAuth: any }) => {
     <RootStyle>
       <Container maxWidth="sm">
         <ContentStyle>
-          <HeadingStyle component={motion.div} {...fadeInUp}>
+          <HeadingStyle {...fadeInUp}>
             <Logo />
             <Typography sx={{ color: "text.secondary", mb: 5 }}>
               Login to your account
             </Typography>
           </HeadingStyle>
 
-          <Box component={motion.div} {...fadeInUp}>
+          <Box {...fadeInUp}>
             <SocialAuth />
           </Box>
 
-          <Divider sx={{ my: 3 }} component={motion.div} {...fadeInUp}>
+          <Divider sx={{ my: 3 }} {...fadeInUp}>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               OR
             </Typography>
@@ -70,7 +69,6 @@ const Login = ({ setAuth } : { setAuth: any }) => {
           <LoginForm setAuth={setAuth} />
 
           <Typography
-            component={motion.p}
             {...fadeInUp}
             variant="body2"
             align="center"
