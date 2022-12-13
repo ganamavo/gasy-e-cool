@@ -15,8 +15,9 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
+import axios from "axios";
 
-const LoginForm = ({ setAuth } : { setAuth: any}) => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const location: any = useLocation();
   const from = location?.state?.from?.pathname || "/";
@@ -37,16 +38,17 @@ const LoginForm = ({ setAuth } : { setAuth: any}) => {
       remember: true,
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
-      setTimeout(() => {
-        setAuth(true);
+    onSubmit: async() => {
+      try {
+        await axios.post('http://localhost:4000/login', values)
         navigate(from, { replace: true });
-      }, 2000);
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } =
-    formik;
+  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
 
   return (
     <FormikProvider value={formik}>

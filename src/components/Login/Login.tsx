@@ -55,7 +55,7 @@ const Login = ({ setAuth } : { setAuth: any }) => {
               Login to your account
             </Typography>
           </HeadingStyle>
-
+{/* 
           <Box {...fadeInUp}>
             <SocialAuth />
           </Box>
@@ -64,9 +64,9 @@ const Login = ({ setAuth } : { setAuth: any }) => {
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               OR
             </Typography>
-          </Divider>
+          </Divider> */}
 
-          <LoginForm setAuth={setAuth} />
+          <LoginForm/>
 
           <Typography
             {...fadeInUp}

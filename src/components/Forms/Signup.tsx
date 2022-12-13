@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import { useState } from "react";
 import { useFormik, Form, FormikProvider } from "formik";
-import { useNavigate } from "react-router-dom";
 import {
   Stack,
   Box,
@@ -11,24 +10,10 @@ import {
   Alert,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import axios from 'axios';
 import { Icon } from "@iconify/react";
 
-import axios from 'axios';
-
-let easing = [0.6, -0.05, 0.01, 0.99];
-const animate = {
-  opacity: 1,
-  y: 0,
-  transition: {
-    duration: 0.6,
-    ease: easing,
-    delay: 0.16,
-  },
-};
-
-const SignupForm = ({ setAuth } : {setAuth: any}) => {
-  const navigate = useNavigate();
-
+const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState(null);
@@ -49,37 +34,39 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
     confirm_password: Yup.string().required("Please confirm your password"),
   });
 
+  const userInitialValues = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    confirm_password: ""
+  };
+
   const formik = useFormik({
-    initialValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      confirm_password: ""
-    },
+    initialValues: userInitialValues,
     validationSchema: SignupSchema,
-    onSubmit: () => {
-      setTimeout(() => {
-        setAuth(true);
-        navigate("/", { replace: true });
-      }, 2000);
+    onSubmit: async() => {
+      try {
+        await axios.post('http://localhost:4000/users', values);
+        setValues(userInitialValues);
+      } catch (error: any) {
+        setError(error?.response?.data?.msg);
+      }
     },
   });
 
-  const { errors, touched, isSubmitting, getFieldProps, values } = formik;
-
-  const handleSignUp = async(e: any) => {
-    e.preventDefault()
-    try {
-      await axios.post('http://localhost:5000/users', values);
-    } catch (error: any) {
-      setError(error?.response?.data?.msg);
-    }
-  }
-
+  const { errors, touched, isSubmitting, handleSubmit, getFieldProps, values, setValues } = formik;
+ 
   return (
     <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={(e) => handleSignUp(e)}>
+      <Form 
+        autoComplete="off" 
+        noValidate 
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit()
+        }}
+      >
         <Stack spacing={3}>
           <Stack
             display='flex'

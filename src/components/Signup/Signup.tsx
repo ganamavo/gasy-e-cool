@@ -1,9 +1,8 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Container, Typography, Link, Box, Divider } from "@mui/material";
+import { Container, Typography, Link, Box } from "@mui/material";
 import styled from "@emotion/styled";
 
-import SocialAuth from "../Forms/SocialAuth";
 import SignupForm from "../Forms/Signup";
 import Logo from "../Forms/Logo"; 
 
@@ -58,17 +57,18 @@ const Signup = ({ setAuth }: {setAuth: any}) => {
             </Typography>
           </HeadingStyle>
 
-          <Box {...fadeInUp}>
+          {/* TODO: Add social Auth to the platform */}
+          {/* <Box {...fadeInUp}>
             <SocialAuth />
-          </Box>
+          </Box> */}
 
-          <Divider sx={{ my: 3 }} {...fadeInUp}>
+          {/* <Divider sx={{ my: 3 }} {...fadeInUp}>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               OR
             </Typography>
-          </Divider>
+          </Divider> */}
 
-          <SignupForm setAuth={setAuth} />
+          <SignupForm />
 
           <Typography
             {...fadeInUp}
