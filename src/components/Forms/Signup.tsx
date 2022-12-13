@@ -8,9 +8,12 @@ import {
   TextField,
   IconButton,
   InputAdornment,
+  Alert,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
+
+import axios from 'axios';
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
@@ -27,28 +30,32 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState(null);
 
   const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
+    first_name: Yup.string()
       .min(2, "Too Short!")
-      .max(50, "Too Long!")
+      .max(45, "Too Long!")
       .required("First name required"),
-    lastName: Yup.string()
+    last_name: Yup.string()
       .min(2, "Too Short!")
-      .max(50, "Too Long!")
+      .max(45, "Too Long!")
       .required("Last name required"),
     email: Yup.string()
       .email("Email must be a valid email address")
       .required("Email is required"),
     password: Yup.string().required("Password is required"),
+    confirm_password: Yup.string().required("Please confirm your password"),
   });
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       email: "",
       password: "",
+      confirm_password: ""
     },
     validationSchema: SignupSchema,
     onSubmit: () => {
@@ -59,11 +66,20 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
     },
   });
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
+  const { errors, touched, isSubmitting, getFieldProps, values } = formik;
+
+  const handleSignUp = async(e: any) => {
+    e.preventDefault()
+    try {
+      await axios.post('http://localhost:5000/users', values);
+    } catch (error: any) {
+      setError(error?.response?.data?.msg);
+    }
+  }
 
   return (
     <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <Form autoComplete="off" noValidate onSubmit={(e) => handleSignUp(e)}>
         <Stack spacing={3}>
           <Stack
             display='flex'
@@ -73,17 +89,17 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
             <TextField
               fullWidth
               label="First name"
-              {...getFieldProps("firstName")}
-              error={Boolean(touched.firstName && errors.firstName)}
-              helperText={touched.firstName && errors.firstName}
+              {...getFieldProps("first_name")}
+              error={Boolean(touched.first_name && errors.first_name)}
+              helperText={touched.first_name && errors.first_name}
             />
 
             <TextField
               fullWidth
               label="Last name"
-              {...getFieldProps("lastName")}
-              error={Boolean(touched.lastName && errors.lastName)}
-              helperText={touched.lastName && errors.lastName}
+              {...getFieldProps("last_name")}
+              error={Boolean(touched.last_name && errors.last_name)}
+              helperText={touched.last_name && errors.last_name}
             />
           </Stack>
 
@@ -123,6 +139,31 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
               error={Boolean(touched.password && errors.password)}
               helperText={touched.password && errors.password}
             />
+            <TextField
+              fullWidth
+              autoComplete="current-password"
+              type={showConfirmPassword ? "text" : "password"}
+              label="Confirm Password"
+              {...getFieldProps("confirm_password")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      edge="end"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                    >
+                      <Icon
+                        icon={
+                          showPassword ? "eva:eye-fill" : "eva:eye-off-fill"
+                        }
+                      />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              error={Boolean(touched.confirm_password && errors.confirm_password) ||  !!(values.confirm_password && values.password !== values.confirm_password)}
+              helperText={touched.confirm_password ? errors.confirm_password : !!(values.confirm_password && values.password !== values.confirm_password) ? "Passwords don't match" : ''}
+            />
           </Stack>
 
           <Box>
@@ -132,10 +173,18 @@ const SignupForm = ({ setAuth } : {setAuth: any}) => {
               type="submit"
               variant="contained"
               loading={isSubmitting}
+              disabled={!values.first_name || !values.last_name || !values.email || !values.password || !values.confirm_password || !!error}
             >
               Sign up
             </LoadingButton>
           </Box>
+          {
+            error && (
+              <Alert severity="error" >
+                {error}, Please try again!
+              </Alert>
+            )
+          }
         </Stack>
       </Form>
     </FormikProvider>

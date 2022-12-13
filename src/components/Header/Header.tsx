@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Uploaded work', 'Sell any products', 'Get In Touch', 'Find mentors', 'Write a Blog'];
+const pages = ['Uploaded work', 'Get In Touch', 'Find mentors', 'Write a Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
