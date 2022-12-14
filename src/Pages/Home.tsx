@@ -1,9 +1,18 @@
 import { Button, Typography, Container, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles"; 
+import axios from "axios";
 import Logo from "../components/Forms/Logo";
 
 const Home = ({ setAuth }: {setAuth: any}) => {
   const theme = useTheme();
+
+  const handleLogout = async() => {
+    try {
+      await axios.delete('htpp://localhost:4000/logout');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Container
@@ -38,7 +47,7 @@ const Home = ({ setAuth }: {setAuth: any}) => {
         Welcome Back
       </Typography>
 
-      <Button size="large" variant="contained" onClick={() => setAuth(false)}>
+      <Button size="large" variant="contained" onClick={handleLogout}>
         Log out
       </Button>
     </Container>

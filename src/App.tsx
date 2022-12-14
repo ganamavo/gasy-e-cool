@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import Header from './components/Header';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+
+import Header from './components/Header';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './Pages/Home';
