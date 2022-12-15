@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
@@ -16,13 +16,19 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { logIn } from "../../actions/userRegistration";
+import { User, UserState } from "../../types/User";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const location: any = useLocation();
-  const from = location?.state?.from?.pathname || "/";
+
+  const user = useSelector((state: { user: UserState}) => state.user?.data);
+  const users = useSelector((state: { users: { data: User }}) => state.users?.data);
 
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -39,16 +45,14 @@ const LoginForm = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: async() => {
-      try {
-        await axios.post('http://localhost:4000/login', values)
-        navigate(from, { replace: true });
-      } catch (error) {
-        console.log(error);
-      }
+      // @ts-ignore
+      dispatch(logIn(values));
     },
-  });
+  }); 
 
   const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  console.log('users::::::', users);
+  console.log('user::::::', user);
 
   return (
     <FormikProvider value={formik}>

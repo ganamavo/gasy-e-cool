@@ -12,12 +12,18 @@ import {
 import { LoadingButton } from "@mui/lab";
 import axios from 'axios';
 import { Icon } from "@iconify/react";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp } from "../../actions/userRegistration";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const user = useSelector((state: any) => state);
 
+  const dispatch = useDispatch();
+
+  console.log('user::::::', user);
   const SignupSchema = Yup.object().shape({
     first_name: Yup.string()
       .min(2, "Too Short!")
@@ -46,12 +52,9 @@ const SignupForm = () => {
     initialValues: userInitialValues,
     validationSchema: SignupSchema,
     onSubmit: async() => {
-      try {
-        await axios.post('http://localhost:4000/users', values);
-        setValues(userInitialValues);
-      } catch (error: any) {
-        setError(error?.response?.data?.msg);
-      }
+      // @ts-ignore
+      dispatch(signUp(values, (err: string) => setError(err)));
+      await setValues(userInitialValues);
     },
   });
 
