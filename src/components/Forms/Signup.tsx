@@ -1,5 +1,7 @@
 import * as Yup from "yup";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useFormik, Form, FormikProvider } from "formik";
 import {
   Stack,
@@ -10,20 +12,18 @@ import {
   Alert,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import axios from 'axios';
 import { Icon } from "@iconify/react";
-import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../actions/userRegistration";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const user = useSelector((state: any) => state);
+
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
 
-  console.log('user::::::', user);
   const SignupSchema = Yup.object().shape({
     first_name: Yup.string()
       .min(2, "Too Short!")
@@ -54,7 +54,8 @@ const SignupForm = () => {
     onSubmit: async() => {
       // @ts-ignore
       dispatch(signUp(values, (err: string) => setError(err)));
-      await setValues(userInitialValues);
+      navigate('/');
+      setValues(userInitialValues);
     },
   });
 

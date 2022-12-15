@@ -44,7 +44,7 @@ const fadeInUp = {
   },
 };
 
-const Signup = ({ setAuth }: {setAuth: any}) => {
+const Signup = () => {
   return (
     <RootStyle>
       <Container maxWidth="sm">

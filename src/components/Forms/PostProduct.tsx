@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -15,16 +15,18 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../actions/userRegistration";
 import { User, UserState } from "../../types/User";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const location: any = useLocation();
 
   const user = useSelector((state: { user: UserState}) => state.user?.data);
   const users = useSelector((state: { users: { data: User }}) => state.users?.data);
-  console.log('users::::::', users);
+
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
@@ -45,7 +47,6 @@ const LoginForm = () => {
     onSubmit: async() => {
       // @ts-ignore
       dispatch(logIn(values));
-      navigate('/');
     },
   }); 
 

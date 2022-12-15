@@ -1,19 +1,6 @@
-import { Button, Typography, Container, Box } from "@mui/material";
-import { useTheme } from "@mui/material/styles"; 
-import axios from "axios";
-import Logo from "../components/Forms/Logo";
+import { Typography, Container, Stack } from "@mui/material";
 
-const Home = ({ setAuth }: {setAuth: any}) => {
-  const theme = useTheme();
-
-  const handleLogout = async() => {
-    try {
-      await axios.delete('htpp://localhost:4000/logout');
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
+const Home = () => {
   return (
     <Container
       maxWidth="lg"
@@ -22,34 +9,23 @@ const Home = ({ setAuth }: {setAuth: any}) => {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        height: "100vh",
+        height: '100vh'
       }}
     >
-      <Box sx={{ mb: 5, mt: -10 }}>
-        <Logo />
-      </Box>
-      <Typography
-        sx={{
-          textAlign: "center",
-          marginTop: "-4rem",
-          fontSize: "5rem",
-          fontWeight: 700,
-          letterSpacing: "-0.5rem",
-          display: "inline-block",
-          whiteSpace: "nowrap",
-          [theme.breakpoints.down("sm")]: {
-            fontSize: "4rem",
-            letterSpacing: "-0.4rem",
-          },
-        }}
-        gutterBottom
-      >
-        Welcome Back
+      <Typography variant="h2" color='primary' >
+        Innovative thinking helps you dream big!
       </Typography>
-
-      <Button size="large" variant="contained" onClick={handleLogout}>
-        Log out
-      </Button>
+      <Stack sx={{ mt: 5 }} gap={2} alignItems='center' justifyContent='center' >
+        <Typography variant="h4" color='secondary' >
+          Welcome to <strong>E-Gasy-Cool</strong>
+        </Typography>
+        <Typography>
+          To help with the advance of your country, technologies should first come to mind. This platform is built to help you show our creativity to everyone, share our experience with the ones in need and contact each other for anything. 
+        </Typography>
+        <Typography>
+          If you find yourself struggling to find the right mentors or a good place to show off what you are doing, you are coming to the right place because here, you can post any of your products, tutos, PDF,... You can also contact a person who you want to assist you with anything.
+        </Typography>
+      </Stack>
     </Container>
   );
 };

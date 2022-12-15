@@ -1,33 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './Pages/Home';
+import Products from './Pages/Products';
 
 const App = () => {
-  const [auth, setAuth] = useState(false);
-  const location = useLocation();
 
   return (
     <Box>
       <Header/>
       <Box sx={{background: '#f2f3f8'}}>
       <Routes>
-        <Route path="/login" element={<Login setAuth={setAuth} />} />
-        <Route path="/signup" element={<Signup setAuth={setAuth} />} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<Signup/>} />
         <Route
           path="/"
-          element={
-            auth ? (
-              <Home setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" state={{ from: location }} replace />
-            )
-          }
+          element={<Home/>}
         />
+        <Route path="/products" element={<Products/>} />
       </Routes>
       </Box>
     </Box>
