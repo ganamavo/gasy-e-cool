@@ -24,7 +24,6 @@ const LoginForm = () => {
 
   const user = useSelector((state: { user: UserState}) => state.user?.data);
   const users = useSelector((state: { users: { data: User }}) => state.users?.data);
-  console.log('users::::::', users);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
@@ -71,7 +70,6 @@ const LoginForm = () => {
               error={Boolean(touched.email && errors.email)}
               helperText={touched.email && errors.email}
             />
-
             <TextField
               fullWidth
               autoComplete="current-password"

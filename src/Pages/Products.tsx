@@ -1,4 +1,5 @@
 import { Typography, Container, Box } from "@mui/material";
+import AddProductForm from "../components/Forms/PostProduct";
 
 const Products = () => {
   return (
@@ -15,7 +16,10 @@ const Products = () => {
         All available products
       </Typography>
       <Box>
-         
+        <Typography variant="h4" marginTop={15} marginBottom={2} color='primary' >
+          You can add your product for free
+        </Typography>
+        <AddProductForm />
       </Box>
     </Container>
   );
