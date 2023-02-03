@@ -4,7 +4,7 @@ import { Container, Typography, Link, Box } from "@mui/material";
 import styled from "@emotion/styled";
 
 import LoginForm from "../Forms/Login";
-import Logo from "../Forms/Logo";
+import { useCookies } from "react-cookie";
 
 const RootStyle = styled("div")({
   background: "rgb(249, 250, 251)",
@@ -45,28 +45,33 @@ const fadeInUp = {
 };
 
 const Login = () => {
+  const [cookies] = useCookies(['loggedInUser']);
+
   return (
     <RootStyle>
       <Container maxWidth="sm">
         <ContentStyle>
-          <HeadingStyle {...fadeInUp}>
-            <Logo />
-            <Typography sx={{ color: "text.secondary", mb: 5 }}>
-              Login to your account
-            </Typography>
+          {!cookies.loggedInUser && (
+            <HeadingStyle {...fadeInUp}>
+              <Typography sx={{ color: "text.secondary", mb: 5 }}>
+                Login to your account
+              </Typography>
           </HeadingStyle>
+          )}
           <LoginForm/>
-          <Typography
-            {...fadeInUp}
-            variant="body2"
-            align="center"
-            sx={{ mt: 3 }}
-          >
-            Don’t have an account?{" "}
-            <Link variant="subtitle2" component={RouterLink} to="/signup">
-              Sign up
-            </Link>
-          </Typography>
+          {!cookies.loggedInUser && (
+            <Typography
+              {...fadeInUp}
+              variant="body2"
+              align="center"
+              sx={{ mt: 3 }}
+            >
+              Don’t have an account?{" "}
+              <Link variant="subtitle2" component={RouterLink} to="/signup">
+                Sign up
+              </Link>
+            </Typography>
+          )}
         </ContentStyle>
       </Container>
     </RootStyle>

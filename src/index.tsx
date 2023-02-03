@@ -7,12 +7,15 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import store from './store';
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.render(
   <Router>
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
       </Provider>
     </React.StrictMode>
   </Router>,

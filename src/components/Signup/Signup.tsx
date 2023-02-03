@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 
 import SignupForm from "../Forms/Signup";
 import Logo from "../Forms/Logo"; 
+import { useCookies } from "react-cookie";
 
 const RootStyle = styled("div")({
   background: "rgb(249, 250, 251)",
@@ -45,6 +46,8 @@ const fadeInUp = {
 };
 
 const Signup = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['loggedInUser']);
+
   return (
     <RootStyle>
       <Container maxWidth="sm">
@@ -93,7 +96,12 @@ const Signup = () => {
             sx={{ mt: 3 }}
           >
             Have an account?{" "}
-            <Link variant="subtitle2" component={RouterLink} to="/login">
+            <Link 
+              onClick={() => removeCookie('loggedInUser', { path: '/' })} 
+              variant="subtitle2"
+              component={RouterLink}
+              to="/login"
+            >
               Login
             </Link>
           </Typography>
