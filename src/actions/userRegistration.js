@@ -24,7 +24,20 @@ export const logIn = (params) => {
             dispatch(setIsLoggedIn(true));
         } catch (error) {
             dispatch(setUserInfo(null));
-            dispatch(setIsLoggedIn(true));
+            dispatch(setIsLoggedIn(false));
+        }
+    };
+};
+
+export const logOut = (params) => {
+    return async(dispatch) => {
+        try {
+            await axios.put('http://localhost:4000/logout', params);
+            dispatch(setUserInfo(null));
+            dispatch(setIsLoggedIn(false));
+        } catch (error) {
+            dispatch(setUserInfo(null));
+            dispatch(setIsLoggedIn(false));
         }
     };
 };

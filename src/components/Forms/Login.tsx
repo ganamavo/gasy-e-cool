@@ -18,7 +18,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 
-import { logIn } from "../../actions/userRegistration";
+import { logIn, logOut } from "../../actions/userRegistration";
 import { useCookies } from 'react-cookie';
 
 const LoginForm = () => {
@@ -154,6 +154,11 @@ const LoginForm = () => {
             <Button 
               sx={{ alignSelf: 'center', width: 100}}
               variant="contained"
+              onClick={() => {
+                // @ts-ignore
+                dispatch(logOut({email: cookies.loggedInUser.email}));
+                removeCookie('loggedInUser', { path: '/' });
+              }}
             >
               Log out
             </Button>
