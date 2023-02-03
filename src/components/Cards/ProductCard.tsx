@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export type Product = {
     id: number;
@@ -17,15 +18,21 @@ export type Product = {
 
 interface ProductCardProps {
     product: Product;
+    deleteProduct: (id: number) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct }) => {
 
   return (
     <Card sx={{ maxWidth: 500 }}>
       <CardHeader
         title={product.name}
         subheader={product.createdAt}
+        action={
+          <IconButton onClick={() => deleteProduct(product.id)} aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        }
       />
       <CardMedia
         component="img"

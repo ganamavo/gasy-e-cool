@@ -1,23 +1,35 @@
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Container, Box } from "@mui/material";
+
+import { getAllProducts, deleteProduct } from "../actions/product";
+import { setShouldRefreshProductsData } from "../slices/product";
+
 import AddProductForm from "../components/Forms/PostProduct";
 import ProductCard, { Product } from "../components/Cards/ProductCard";
-import { useCallback, useEffect, useState } from "react";
-import { getAllProducts } from "../actions/product";
 
 const Products = () => {
   const products = useSelector((state: { products: { data: Product[] }}) => state.products?.data);
+  const refreshProductsData = useSelector((state: { products: { shouldRefreshData: boolean }}) => state.products?.shouldRefreshData);
   const [productsError, setProductsError] = useState<string | null>(null);
   const dispatch = useDispatch();
 
   const getProducts = useCallback(() => {
     // @ts-ignore
     dispatch(getAllProducts(err => setProductsError(err)));
-  }, []);
+    // eslint-disable-next-line
+  }, [refreshProductsData]);
 
   useEffect(() => {
     getProducts();
-  }, [products]);
+    // eslint-disable-next-line
+  }, [refreshProductsData]);
+
+  const removeProduct = (id: number) => {
+     // @ts-ignore
+    dispatch(deleteProduct(id));
+    dispatch(setShouldRefreshProductsData(true));
+  }
 
   return (
     <Container
@@ -33,10 +45,14 @@ const Products = () => {
         All available products
       </Typography>
       <Box marginTop={3} display='grid' gridTemplateColumns='repeat(2, 1fr)' gap={3}>
-        {!!products?.length ? 
-          products.map((product => <ProductCard key={product.id} product={product} />))
-          :
-          <Typography>We don't have products to show yet</Typography>
+        {!productsError && !!products?.length ? 
+            products.map((product => {
+              return <ProductCard key={product.id} product={product} deleteProduct={removeProduct}/>
+            })) 
+                :
+                  productsError ? <Typography>{productsError}</Typography>
+                    : 
+                      <Typography>We don't have products to show yet</Typography>
         }
       </Box>
       <Box>

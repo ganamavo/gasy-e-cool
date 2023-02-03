@@ -5,12 +5,15 @@ export const productSlice = createSlice({
     initialState: {
         data: null,
         singleProduct: false,
+        shouldRefreshData: false
     },
     reducers: {
         setProducts: (state, action) => {
             state.data = action.payload;
         },
-
+        setShouldRefreshProductsData: (state, action) => {
+            state.shouldRefreshData = action.payload;
+        },
         setSingleProduct: (state, action) => {
             state.singleProduct = action.payload;
         },
@@ -18,7 +21,7 @@ export const productSlice = createSlice({
 });
 
 // this is for dispatch
-export const { setProducts } = productSlice.actions;
+export const { setProducts, setShouldRefreshProductsData } = productSlice.actions;
 
 // this is for configureStore
 export default productSlice.reducer;

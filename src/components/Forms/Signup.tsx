@@ -21,7 +21,6 @@ const SignupForm = () => {
   const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate()
-
   const dispatch = useDispatch();
 
   const SignupSchema = Yup.object().shape({

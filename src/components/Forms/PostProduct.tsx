@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import {
+  Alert,
   Box,
   Button,
   Stack,
@@ -45,22 +46,20 @@ const AddProductForm = () => {
   const formik = useFormik({
     initialValues: productInitialValues,
     validationSchema: ProductSchema,
-    onSubmit: async() => {
+    onSubmit: async(values, { resetForm }) => {
       values.image_url = image[0]?.dataURL || 'https://img.freepik.com/free-vector/business-people-handshake-doodle-vector_53876-126569.jpg?w=2000'
       // @ts-ignore
       dispatch(addProduct(values, error => setError(error)));
-      setValues(productInitialValues);
       setImage([]);
+      resetForm({ values: undefined });
     },
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps, setValues } = formik;
-
-  const handleImageUpload = (
-    imageList: ImageListType
-  ) => {
+  const handleImageUpload = (imageList: ImageListType) => {
     setImage(imageList);
   };
+
+  const { errors, touched, isSubmitting, handleSubmit, getFieldProps } = formik;
 
   return (
     <FormikProvider value={formik}>
@@ -188,6 +187,7 @@ const AddProductForm = () => {
               {isSubmitting ? "loading..." : "Add your product"}
             </LoadingButton>
         </Stack>
+        {!isSubmitting && error && <Alert sx={{ marginTop: 1 }} severity="error">{error}</Alert>}
       </Form>
     </FormikProvider>
   );

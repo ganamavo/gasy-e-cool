@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
-
 import {
   Box,
   Checkbox,
@@ -15,15 +15,15 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
-import { useDispatch, useSelector } from "react-redux";
+
 import { logIn } from "../../actions/userRegistration";
-import { User, UserState } from "../../types/User";
+import { UserState } from "../../types/User";
 
 const LoginForm = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state: { user: UserState}) => state.user?.data);
-  const users = useSelector((state: { users: { data: User }}) => state.users?.data);
+  console.log('user::::::', user);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
