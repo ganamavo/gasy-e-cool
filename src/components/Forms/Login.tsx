@@ -23,7 +23,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state: { user: UserState}) => state.user?.data);
-  console.log('user::::::', user);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
