@@ -48,11 +48,9 @@ const Products = () => {
         {!productsError && !!products?.length ? 
             products.map((product => {
               return <ProductCard key={product.id} product={product} deleteProduct={removeProduct}/>
-            })) 
-                :
-                  productsError ? <Typography>{productsError}</Typography>
-                    : 
-                      <Typography>We don't have products to show yet</Typography>
+            })) :
+                  productsError ? <Typography>{productsError}</Typography> : 
+                    <Typography>We don't have products to show yet</Typography>
         }
       </Box>
       <Box>

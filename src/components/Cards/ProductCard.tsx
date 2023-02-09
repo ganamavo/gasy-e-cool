@@ -36,7 +36,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct }) => 
       />
       <CardMedia
         component="img"
-        height="194"
         image={product.image_url}
         alt=""
       />

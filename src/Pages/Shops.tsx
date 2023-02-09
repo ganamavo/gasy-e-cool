@@ -5,13 +5,14 @@ import { Typography, Container, Box } from "@mui/material";
 import AddShopForm from "../components/Forms/AddShop";
 import { getAllShops } from "../actions/shop";
 import { setShouldRefreshShopsData } from "../slices/shop";
+import ShopCard from "../components/Cards/ShopCard";
 
 const Shops = () => {
   const shops = useSelector((state: { shops: { data: any[] }}) => state.shops?.data);
   const refreshShopsData = useSelector((state: { Shops: { shouldRefreshData: boolean }}) => state.Shops?.shouldRefreshData);
   const [shopsError, setShopsError] = useState<string | null>(null);
   const dispatch = useDispatch();
-    console.log('shops::::::', shops);
+
   const getShops = useCallback(() => {
     // @ts-ignore
     dispatch(getAllShops(err => setShopsError(err)));
@@ -40,10 +41,19 @@ const Shops = () => {
       }}
     >
       <Typography variant="h3" marginTop={15} color='primary' >
-        All available Shops
+        Online Shops
       </Typography>
+      <Box marginTop={3} display='grid' gridTemplateColumns='repeat(2, 1fr)' gap={3}>
+        {!shopsError && !!shops?.length ? 
+            shops.map((shop => {
+              return <ShopCard key={shop.id} shop={shop} deleteShop={removeShop}/>
+            })) :
+                shopsError ? <Typography>{shopsError}</Typography> : 
+                    <Typography>We don't have shops to show yet</Typography>
+        }
+      </Box>
       <Box>
-        <Typography variant="h4" marginTop={15} marginBottom={2} color='primary' >
+        <Typography variant="h5" marginTop={15} marginBottom={2} color='text.secondary' >
           You can register your shops for free by filling out the form below:
         </Typography>
         <AddShopForm />
