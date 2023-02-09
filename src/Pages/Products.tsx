@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Container, Box } from "@mui/material";
 
-import { getAllProducts, deleteProduct } from "../actions/product";
-import { setShouldRefreshProductsData } from "../slices/product";
+import { getAllProducts, deleteProduct, favoriteProduct } from "../actions/product";
+import { setProducts } from "../slices/product";
 
 import AddProductForm from "../components/Forms/PostProduct";
 import ProductCard, { Product } from "../components/Cards/ProductCard";
@@ -26,9 +26,25 @@ const Products = () => {
   }, [refreshProductsData]);
 
   const removeProduct = (id: number) => {
+    const filteredProducts = products.filter(product => product.id !== id);
+    dispatch(setProducts(filteredProducts));
      // @ts-ignore
     dispatch(deleteProduct(id));
-    dispatch(setShouldRefreshProductsData(true));
+  }
+
+  const addToFavorite = (id: number, is_favourited: boolean) => {
+    const updatedProducts = products.map(product => {
+      if(product.id === id) {
+        return {
+          ...product,
+          is_favourited: !product.is_favourited
+        }
+      }
+      return product;
+    });
+    dispatch(setProducts(updatedProducts));
+    // @ts-ignore
+    dispatch(favoriteProduct(id, { is_favourited: !is_favourited }))
   }
 
   return (
@@ -47,7 +63,7 @@ const Products = () => {
       <Box marginTop={3} display='grid' gridTemplateColumns='repeat(2, 1fr)' gap={3}>
         {!productsError && !!products?.length ? 
             products.map((product => {
-              return <ProductCard key={product.id} product={product} deleteProduct={removeProduct}/>
+              return <ProductCard key={product.id} product={product} deleteProduct={removeProduct} favoriteProduct={addToFavorite}/>
             })) :
                   productsError ? <Typography>{productsError}</Typography> : 
                     <Typography>We don't have products to show yet</Typography>

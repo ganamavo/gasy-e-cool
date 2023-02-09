@@ -14,14 +14,16 @@ export type Product = {
     owner_phone_number: string;
     owner_first_name: string;
     owner_last_name: string;
+    is_favourited: boolean;
 }
 
 interface ProductCardProps {
     product: Product;
     deleteProduct: (id: number) => void;
+    favoriteProduct: (id: number, is_favourited: boolean) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct, favoriteProduct }) => {
 
   return (
     <Card sx={{ maxWidth: 500 }}>
@@ -51,8 +53,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct }) => 
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton onClick={() => favoriteProduct(product.id, product.is_favourited)} aria-label="add to favorites">
+          <FavoriteIcon color={product.is_favourited ? 'error' : 'inherit'} />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />

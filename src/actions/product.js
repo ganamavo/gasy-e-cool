@@ -33,3 +33,13 @@ export const deleteProduct = (id) => {
     };
 };
 
+export const favoriteProduct = (id, params) => {
+    return async() => {
+        try {
+            await axios.put(`http://localhost:4000/products/${id}`, params);
+        } catch (error) {
+            return error?.response?.data?.msg;
+        };
+    };
+};
+
