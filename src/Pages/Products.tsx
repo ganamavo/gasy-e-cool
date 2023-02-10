@@ -2,16 +2,23 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Container, Box } from "@mui/material";
 
-import { getAllProducts, deleteProduct, favoriteProduct } from "../actions/product";
+import { getAllProducts, deleteProduct, editSingleProduct } from "../actions/product";
 import { setProducts } from "../slices/product";
 
 import AddProductForm from "../components/Forms/PostProduct";
 import ProductCard, { Product } from "../components/Cards/ProductCard";
+import EditProduct from "../components/Modals/EditProductModal";
+import ConfirmDeletion from "../components/Modals/ConfirmDeletion";
 
 const Products = () => {
   const products = useSelector((state: { products: { data: Product[] }}) => state.products?.data);
   const refreshProductsData = useSelector((state: { products: { shouldRefreshData: boolean }}) => state.products?.shouldRefreshData);
-  const [productsError, setProductsError] = useState<string | null>(null);
+  const [productsError, setProductsError] = useState(null);
+  const [showEditProductModal, setShowEditProductModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [productId, setProductId] = useState<number | null>(null);
+  const [modalData, setModalData] = useState<Product | null>(null);
+
   const dispatch = useDispatch();
 
   const getProducts = useCallback(() => {
@@ -25,11 +32,11 @@ const Products = () => {
     // eslint-disable-next-line
   }, [refreshProductsData]);
 
-  const removeProduct = (id: number) => {
-    const filteredProducts = products.filter(product => product.id !== id);
+  const removeProduct = () => {
+    const filteredProducts = products.filter(product => product.id !== productId);
     dispatch(setProducts(filteredProducts));
      // @ts-ignore
-    dispatch(deleteProduct(id));
+    dispatch(deleteProduct(productId));
   }
 
   const addToFavorite = (id: number, is_favourited: boolean) => {
@@ -44,7 +51,7 @@ const Products = () => {
     });
     dispatch(setProducts(updatedProducts));
     // @ts-ignore
-    dispatch(favoriteProduct(id, { is_favourited: !is_favourited }))
+    dispatch(editSingleProduct(id, { is_favourited: !is_favourited }))
   }
 
   return (
@@ -63,10 +70,27 @@ const Products = () => {
       <Box marginTop={3} display='grid' gridTemplateColumns='repeat(2, 1fr)' gap={3}>
         {!productsError && !!products?.length ? 
             products.map((product => {
-              return <ProductCard key={product.id} product={product} deleteProduct={removeProduct} favoriteProduct={addToFavorite}/>
+              return (
+                <ProductCard 
+                  key={product.id} 
+                  product={product} 
+                  deleteProduct={id => {
+                    const singleProduct = products.find(product => product.id === id) || null;
+                    setModalData(singleProduct);
+                    setShowDeleteModal(true);
+                    setProductId(id);
+                  }} 
+                  favoriteProduct={addToFavorite}
+                  editProduct={(product) => {
+                    setShowEditProductModal(true);
+                    setModalData(product);
+                  }}
+                />
+              )
             })) :
-                  productsError ? <Typography>{productsError}</Typography> : 
-                    <Typography>We don't have products to show yet</Typography>
+              productsError ?
+                <Typography>{productsError}</Typography> : 
+                  <Typography>We don't have products to show yet</Typography>
         }
       </Box>
       <Box>
@@ -75,6 +99,19 @@ const Products = () => {
         </Typography>
         <AddProductForm />
       </Box>
+      {showEditProductModal && modalData && (
+        <EditProduct 
+          open
+          onClose={() => setShowEditProductModal(false)}
+          data={modalData}
+        />
+      )}
+      <ConfirmDeletion
+        title={`Delete ${modalData?.name}`}
+        open={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onDelete={removeProduct}
+      />
     </Container>
   );
 };

@@ -33,10 +33,11 @@ export const deleteProduct = (id) => {
     };
 };
 
-export const favoriteProduct = (id, params) => {
-    return async() => {
+export const editSingleProduct = (id, params) => {
+    return async(dispatch) => {
         try {
-            await axios.put(`http://localhost:4000/products/${id}`, params);
+            const res = await axios.put(`http://localhost:4000/products/${id}`, params);
+            dispatch(setProducts(res.data));
         } catch (error) {
             return error?.response?.data?.msg;
         };

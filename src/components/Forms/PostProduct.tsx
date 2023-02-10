@@ -9,12 +9,12 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { LoadingButton } from "@mui/lab"; 
+import { LoadingButton } from "@mui/lab";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { UserState } from "../../types/User";
 import { addProduct } from "../../actions/product";
 
-const ProductSchema = Yup.object().shape({
+export const ProductSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   description: Yup.string().required("Description is required"),
   owner_first_name: Yup.string().required("First Name is required"),
@@ -24,8 +24,9 @@ const ProductSchema = Yup.object().shape({
   price: Yup.string().required('You need to specify the price or it will be free')
 });
 
-const AddProductForm = () => { 
-  const user = useSelector((state: { user: UserState}) => state.user?.data);
+
+const AddProductForm = () => {
+  const user = useSelector((state: { user: UserState }) => state.user?.data);
   const [image, setImage] = useState<ImageListType>([]);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const AddProductForm = () => {
   const formik = useFormik({
     initialValues: productInitialValues,
     validationSchema: ProductSchema,
-    onSubmit: async(values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       values.image_url = image[0]?.dataURL || 'https://img.freepik.com/free-vector/business-people-handshake-doodle-vector_53876-126569.jpg?w=2000'
       // @ts-ignore
       dispatch(addProduct(values, error => setError(error)));
@@ -90,34 +91,34 @@ const AddProductForm = () => {
             />
           </Box>
           <Stack>
-          <ImageUploading
-            value={image}
-            onChange={handleImageUpload}
-            maxNumber={1}
-          >
-            {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
-              <Box>
-                <Button
-                  sx={isDragging ? { color: "red" } : undefined}
-                  onClick={onImageUpload}
-                  {...dragProps}
-                  variant='contained'
-                  size="small"
-                >
-                  Upload an image or Drop here
-                </Button>
-                {!!imageList?.length && imageList.map((image, index) => (
-                  <Box key={index} marginTop={2} className="image-item">
-                    <img src={image.dataURL} alt="" width="400" />
-                    <Box className="image-item__btn-wrapper">
-                      <Button onClick={() => onImageUpdate(index)}>Update</Button>
-                      <Button onClick={() => onImageRemove(index)}>Remove</Button>
+            <ImageUploading
+              value={image}
+              onChange={handleImageUpload}
+              maxNumber={1}
+            >
+              {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
+                <Box>
+                  <Button
+                    sx={isDragging ? { color: "red" } : undefined}
+                    onClick={onImageUpload}
+                    {...dragProps}
+                    variant='contained'
+                    size="small"
+                  >
+                    Upload an image or Drop here
+                  </Button>
+                  {!!imageList?.length && imageList.map((image, index) => (
+                    <Box key={index} marginTop={2} className="image-item">
+                      <img src={image.dataURL} alt="" width="400" />
+                      <Box className="image-item__btn-wrapper">
+                        <Button onClick={() => onImageUpdate(index)}>Update</Button>
+                        <Button onClick={() => onImageRemove(index)}>Remove</Button>
+                      </Box>
                     </Box>
-                  </Box>
-                ))}
-              </Box>
-            )}
-          </ImageUploading>
+                  ))}
+                </Box>
+              )}
+            </ImageUploading>
           </Stack>
           <Stack gap={3}>
             <Box display='flex' flexDirection='row' gap={2}>
@@ -177,15 +178,15 @@ const AddProductForm = () => {
               />
             </Stack>
           </Stack>
-            <LoadingButton
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              loading={isSubmitting}
-            >
-              {isSubmitting ? "loading..." : "Add your product"}
-            </LoadingButton>
+          <LoadingButton
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            loading={isSubmitting}
+          >
+            {isSubmitting ? "loading..." : "Add your product"}
+          </LoadingButton>
         </Stack>
         {!isSubmitting && error && <Alert sx={{ marginTop: 1 }} severity="error">{error}</Alert>}
       </Form>
