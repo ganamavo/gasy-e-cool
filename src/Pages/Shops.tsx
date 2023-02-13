@@ -2,9 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Container, Box } from "@mui/material";
 
-import AddShopForm from "../components/Forms/AddShop";
 import { getAllShops } from "../actions/shop";
 import { setShouldRefreshShopsData } from "../slices/shop";
+
+import AddShopForm from "../components/Forms/AddShop";
 import ShopCard from "../components/Cards/ShopCard";
 
 const Shops = () => {
@@ -28,7 +29,7 @@ const Shops = () => {
      // @ts-ignore
     // dispatch(deleteShop(id));
     dispatch(setShouldRefreshShopsData(true));
-  }
+  };
 
   return (
     <Container

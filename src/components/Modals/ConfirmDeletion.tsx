@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Box, Button, Dialog, DialogActions, DialogContent, Typography } from '@mui/material';
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 
 import DialogTitle from '../../UI/DialogueTitle';
 
@@ -10,7 +10,7 @@ interface ConfirmDeletionProps {
     title: string;
 }
 
-const ConfirmDeletion: React.FC<ConfirmDeletionProps> = ({ open, onClose, title, onDelete }) => {
+const ConfirmDeletionModal: React.FC<ConfirmDeletionProps> = ({ open, onClose, title, onDelete }) => {
   
     return (
         <Dialog
@@ -62,4 +62,4 @@ const ConfirmDeletion: React.FC<ConfirmDeletionProps> = ({ open, onClose, title,
     );
 }
 
-export default ConfirmDeletion;
+export default ConfirmDeletionModal;

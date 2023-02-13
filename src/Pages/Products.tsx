@@ -5,10 +5,10 @@ import { Typography, Container, Box } from "@mui/material";
 import { getAllProducts, deleteProduct, editSingleProduct } from "../actions/product";
 import { setProducts } from "../slices/product";
 
-import AddProductForm from "../components/Forms/PostProduct";
+import AddProductForm from "../components/Forms/AddProduct";
 import ProductCard, { Product } from "../components/Cards/ProductCard";
-import EditProduct from "../components/Modals/EditProductModal";
-import ConfirmDeletion from "../components/Modals/ConfirmDeletion";
+import EditProductModal from "../components/Modals/EditProduct";
+import ConfirmDeletionModal from "../components/Modals/ConfirmDeletion";
 
 const Products = () => {
   const products = useSelector((state: { products: { data: Product[] }}) => state.products?.data);
@@ -37,7 +37,7 @@ const Products = () => {
     dispatch(setProducts(filteredProducts));
      // @ts-ignore
     dispatch(deleteProduct(productId));
-  }
+  };
 
   const addToFavorite = (id: number, is_favourited: boolean) => {
     const updatedProducts = products.map(product => {
@@ -52,7 +52,7 @@ const Products = () => {
     dispatch(setProducts(updatedProducts));
     // @ts-ignore
     dispatch(editSingleProduct(id, { is_favourited: !is_favourited }))
-  }
+  };
 
   return (
     <Container
@@ -67,7 +67,7 @@ const Products = () => {
       <Typography variant="h3" marginTop={15} color='primary' >
         All available products
       </Typography>
-      <Box marginTop={3} display='grid' gridTemplateColumns='repeat(2, 1fr)' gap={3}>
+      <Box marginTop={3} display='grid' gridTemplateColumns='repeat(3, 1fr)' gap={3}>
         {!productsError && !!products?.length ? 
             products.map((product => {
               return (
@@ -100,13 +100,13 @@ const Products = () => {
         <AddProductForm />
       </Box>
       {showEditProductModal && modalData && (
-        <EditProduct 
+        <EditProductModal
           open
           onClose={() => setShowEditProductModal(false)}
           data={modalData}
         />
       )}
-      <ConfirmDeletion
+      <ConfirmDeletionModal
         title={`Delete ${modalData?.name}`}
         open={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}

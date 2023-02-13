@@ -112,7 +112,7 @@ const AddProductForm = () => {
                       <img src={image.dataURL} alt="" width="400" />
                       <Box className="image-item__btn-wrapper">
                         <Button onClick={() => onImageUpdate(index)}>Update</Button>
-                        <Button onClick={() => onImageRemove(index)}>Remove</Button>
+                        <Button color="error" onClick={() => onImageRemove(index)}>Remove</Button>
                       </Box>
                     </Box>
                   ))}
