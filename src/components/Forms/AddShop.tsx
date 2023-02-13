@@ -24,21 +24,20 @@ export const ShopSchema = Yup.object().shape({
   category: Yup.string().required('You need to specify your shop category')
 });
 
-const AddShopForm = () => { 
-  const user = useSelector((state: { user: UserState}) => state.user?.data);
+const AddShopForm = () => {
   const [image, setImage] = useState<ImageListType>([]);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
   const shopInitialValues = {
-    name: "My shop",
-    description: "The best shop ever",
-    location: 'Madagascar',
-    contact: 'Rinon 0340513341',
-    twitter_link: 'http://twitter.com',
+    name: "",
+    description: "",
+    location: '',
+    contact: '',
+    twitter_link: '',
     image_url: '',
-    facebook_link: 'https://fb.com',
-    category: 'Eletric'
+    facebook_link: '',
+    category: ''
   };
 
   const formik = useFormik({
