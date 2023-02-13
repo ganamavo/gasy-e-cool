@@ -47,7 +47,7 @@ const AddProductForm = () => {
   const formik = useFormik({
     initialValues: productInitialValues,
     validationSchema: ProductSchema,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: (values, { resetForm }) => {
       values.image_url = image[0]?.dataURL || 'https://img.freepik.com/free-vector/business-people-handshake-doodle-vector_53876-126569.jpg?w=2000'
       // @ts-ignore
       dispatch(addProduct(values, error => setError(error)));

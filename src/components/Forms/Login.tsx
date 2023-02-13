@@ -40,7 +40,7 @@ const LoginForm = () => {
       remember: true,
     },
     validationSchema: LoginSchema,
-    onSubmit: async() => {
+    onSubmit: () => {
       setCookie('loggedInUser', { email: values.email, isLoggedIn: true }, { path: '/' });
       // @ts-ignore
       dispatch(logIn(values));

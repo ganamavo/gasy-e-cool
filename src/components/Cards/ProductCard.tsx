@@ -1,36 +1,35 @@
 import * as React from 'react';
 import { Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typography, Stack } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export type Product = {
-    id: number;
-    name: string;
-    createdAt: string;
-    image_url: string;
-    description: string;
-    owner_email: string;
-    owner_phone_number: string;
-    owner_first_name: string;
-    owner_last_name: string;
-    is_favourited: boolean;
-    image_alt_text: string;
-    video_url: string;
-    price: string;
+  id: number;
+  name: string;
+  createdAt: string;
+  image_url: string;
+  description: string;
+  owner_email: string;
+  owner_phone_number: string;
+  owner_first_name: string;
+  owner_last_name: string;
+  is_favourited: boolean;
+  image_alt_text: string;
+  video_url: string;
+  price: string;
 }
 
 interface ProductCardProps {
-    product: Product | null;
-    deleteProduct: (id: number) => void;
-    favoriteProduct: (id: number, is_favourited: boolean) => void;
-    editProduct: (product: Product) => void;
+  product: Product | null;
+  deleteProduct: (id: number) => void;
+  favoriteProduct: (id: number, is_favourited: boolean) => void;
+  editProduct: (product: Product) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct, favoriteProduct, editProduct }) => {
 
-  if(product) {
+  if (product) {
     return (
       <Card sx={{ maxWidth: 500 }}>
         <CardHeader
@@ -57,17 +56,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct, favor
           <IconButton onClick={() => favoriteProduct(product.id, product.is_favourited)} aria-label="add to favorites">
             <FavoriteIcon color={product.is_favourited ? 'error' : 'inherit'} />
           </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
           <Stack direction='row' marginLeft='auto'>
-              <IconButton onClick={() => editProduct(product)} aria-label="delete">
-                <EditIcon />
-              </IconButton>
-              <IconButton onClick={() => deleteProduct(product.id)} aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            </Stack>
+            <IconButton onClick={() => editProduct(product)} aria-label="edit">
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={() => deleteProduct(product.id)} aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </Stack>
         </CardActions>
       </Card>
     );

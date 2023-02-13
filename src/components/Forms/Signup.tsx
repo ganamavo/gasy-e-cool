@@ -50,7 +50,7 @@ const SignupForm = () => {
   const formik = useFormik({
     initialValues: userInitialValues,
     validationSchema: SignupSchema,
-    onSubmit: async() => {
+    onSubmit: () => {
       // @ts-ignore
       dispatch(signUp(values, (err: string) => setError(err)));
       navigate('/');

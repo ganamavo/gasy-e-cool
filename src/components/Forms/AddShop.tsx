@@ -14,7 +14,7 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import { UserState } from "../../types/User";
 import { addShop } from "../../actions/shop";
 
-const ShopSchema = Yup.object().shape({
+export const ShopSchema = Yup.object().shape({
   name: Yup.string().required("Shop name is required"),
   description: Yup.string().required("Description is required"),
   location: Yup.string().required("Location is required"),
@@ -44,7 +44,7 @@ const AddShopForm = () => {
   const formik = useFormik({
     initialValues: shopInitialValues,
     validationSchema: ShopSchema,
-    onSubmit: async(values, { resetForm }) => {
+    onSubmit: (values, { resetForm }) => {
       values.image_url = image[0]?.dataURL || 'https://img.freepik.com/free-vector/business-people-handshake-doodle-vector_53876-126569.jpg?w=2000'
       // @ts-ignore
       dispatch(addShop(values, error => setError(error)));

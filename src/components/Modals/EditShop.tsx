@@ -5,28 +5,28 @@ import { useFormik } from "formik";
 import { ImageListType } from "react-images-uploading";
 
 import DialogTitle from '../../UI/DialogueTitle';
-import { Product } from '../Cards/ProductCard';
-import { ProductSchema } from '../Forms/AddProduct';
-import { editSingleProduct } from '../../actions/product';
-import EditProductForm from '../Forms/EditProduct';
+import { editSingleShop } from '../../actions/shop';
+import EditShopForm from '../Forms/EditShop';
+import { Shop } from '../Cards/ShopCard';
+import { ShopSchema } from '../Forms/AddShop';
 
-interface EditProductProps {
+interface EditShopProps {
     open: boolean;
     onClose: () => void;
-    data: Product;
+    data: Shop;
 }
 
-const EditProductModal: React.FC<EditProductProps> = ({ open, onClose, data }) => {
+const EditShopModal: React.FC<EditShopProps> = ({ open, onClose, data }) => {
     const [image, setImage] = useState<ImageListType>([{ dataURL: data.image_url }]);
     const dispatch = useDispatch();
-
+    
     const formik = useFormik({
         initialValues: data,
-        validationSchema: ProductSchema,
+        validationSchema: ShopSchema,
         onSubmit: (values, { resetForm }) => {
             values.image_url = image[0]?.dataURL || data.image_url
             // @ts-ignore
-            dispatch(editSingleProduct(data.id, values));
+            dispatch(editSingleShop(data.id, values));
             setImage([]);
             resetForm({ values: undefined });
         },
@@ -54,10 +54,10 @@ const EditProductModal: React.FC<EditProductProps> = ({ open, onClose, data }) =
             }}
         >
             <DialogTitle onClose={onClose}>
-                Update Product Details
+                Update Shop Details
             </DialogTitle>
             <DialogContent dividers>
-                <EditProductForm formik={formik} handleImageUpload={handleImageUpload} image={image} />
+                <EditShopForm formik={formik} handleImageUpload={handleImageUpload} image={image} />
             </DialogContent>
             <DialogActions sx={{ justifyContent: 'flex-end' }}>
                 <Box display='flex' alignItems='center' gap={2}>
@@ -85,4 +85,4 @@ const EditProductModal: React.FC<EditProductProps> = ({ open, onClose, data }) =
     );
 }
 
-export default EditProductModal;
+export default EditShopModal;
