@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct, favor
 
   if (product) {
     return (
-      <Card sx={{ maxWidth: 500 }}>
+      <Card sx={{ maxWidth: 500, flex: 1, display: 'flex', flexDirection: 'column' }}>
         <CardHeader
           title={product.name}
           subheader={product.createdAt}
@@ -52,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct, favor
             <strong>Contact: </strong>{product.owner_email && product.owner_email + ' or'} {product.owner_phone_number}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions disableSpacing sx={{ marginTop: 'auto' }}>
           <IconButton onClick={() => favoriteProduct(product.id, product.is_favourited)} aria-label="add to favorites">
             <FavoriteIcon color={product.is_favourited ? 'error' : 'inherit'} />
           </IconButton>

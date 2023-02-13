@@ -102,7 +102,7 @@ const AddShopForm = () => {
                   variant='contained'
                   size="small"
                 >
-                  Upload an image or Drop here
+                  Upload or Drop an image
                 </Button>
                 {!!imageList?.length && imageList.map((image, index) => (
                   <Box key={index} marginTop={2} className="image-item">
@@ -181,6 +181,7 @@ const AddShopForm = () => {
               type="submit"
               variant="contained"
               loading={isSubmitting}
+              sx={{ width: 200, marginX: 'auto' }}
             >
               {isSubmitting ? "loading..." : "Add your product"}
             </LoadingButton>

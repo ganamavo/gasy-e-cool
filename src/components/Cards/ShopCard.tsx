@@ -28,7 +28,7 @@ interface ShopCardProps {
 const ShopCard: React.FC<ShopCardProps> = ({ shop, deleteShop, editShop, favoriteShop }) => {
 
   return (
-    <Card sx={{ maxWidth: 500 }}>
+    <Card sx={{ maxWidth: 500, flex: 1, display: 'flex', flexDirection: 'column' }}>
       <CardMedia
         component="img"
         image={shop.image_url}

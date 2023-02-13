@@ -49,15 +49,17 @@ const EditProductForm: React.FC<EditProductProps> = ({ formik, image, handleImag
                         >
                             {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
                                 <Box>
-                                    <Button
-                                        sx={isDragging ? { color: "red" } : undefined}
-                                        onClick={onImageUpload}
-                                        {...dragProps}
-                                        variant='contained'
-                                        size="small"
-                                    >
-                                        Upload an image or Drop here
-                                    </Button>
+                                    {!imageList?.length && (
+                                        <Button
+                                            sx={isDragging ? { color: "red" } : undefined}
+                                            onClick={onImageUpload}
+                                            {...dragProps}
+                                            variant='contained'
+                                            size="small"
+                                        >
+                                            Upload an image or Drop here
+                                        </Button>
+                                    )}
                                     {!!imageList?.length && imageList.map((image, index) => (
                                         <Box key={index} marginTop={2} className="image-item">
                                             <img src={image.dataURL} alt="" width="400" />
