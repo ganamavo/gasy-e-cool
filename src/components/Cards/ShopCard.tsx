@@ -56,7 +56,7 @@ const ShopCard: React.FC<ShopCardProps> = ({ shop, deleteShop, editShop, favorit
             <strong>Twitter: </strong>{shop.twitter_link || 'N/A'}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions disableSpacing sx={{ marginTop: 'auto' }}>
         <IconButton onClick={() => favoriteShop(shop.id, shop.is_favourited)} aria-label="add to favorites">
           <FavoriteIcon color={ shop.is_favourited ? 'error' : 'inherit' } />
         </IconButton>
