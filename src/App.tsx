@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Header from './components/Header';
 import Login from './components/Login';
@@ -11,6 +11,7 @@ import Shops from './Pages/Shops';
 import AppBar from './components/SideBar/SideBar';
 
 const App = () => {
+  const location = useLocation();
 
   return (
     <Box display='flex'>
@@ -18,7 +19,7 @@ const App = () => {
         <AppBar />
       </Box>
       <Box sx={{ width: '100%' }}>
-        <Header/>
+        {(location.pathname === '/products' || location.pathname === '/online-shops') && <Header/>}
         <Box sx={{ background: '#f2f3f8' }}>
           <Routes>
             <Route path="/login" element={<Login />} />
