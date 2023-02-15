@@ -9,7 +9,8 @@ import {
   Avatar,
   Button,
   Tooltip,
-  MenuItem
+  MenuItem,
+  Stack
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -50,25 +51,25 @@ const ResponsiveAppBar = () => {
     <AppBar position="static" sx={{ background: '#333', width: '200px', height: "100%" }} enableColorOnDark>
       <Box position='fixed'>
         <Toolbar disableGutters sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, mt: 2 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              margin: '0 2rem 4rem'
-            }}
-          >
-            GasyECo
-          </Typography>
-
+          <Stack sx={{ display: { xs: 'none', md: 'flex' }}} marginY={4} marginLeft={2} justifyContent='flex-start' alignItems='center' flexDirection='row'>
+            <AdbIcon sx={{ marginRight: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                display: 'flex',
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              EGasyCo
+            </Typography>
+          </Stack>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', flexDirection: 'column' } }}>
             {pages.map((page) => (
               <Button
@@ -111,7 +112,7 @@ const ResponsiveAppBar = () => {
             </Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, flexDirection: 'column' }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Typography
               variant="h5"
