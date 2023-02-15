@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab"; 
 import ImageUploading, { ImageListType } from "react-images-uploading";
-import { UserState } from "../../types/User";
 import { addShop } from "../../actions/shop";
 
 export const ShopSchema = Yup.object().shape({

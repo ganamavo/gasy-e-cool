@@ -46,6 +46,7 @@ const fadeInUp = {
 };
 
 const Signup = () => {
+  // eslint-disable-next-line
   const [cookies, setCookie, removeCookie] = useCookies(['loggedInUser']);
 
   return (

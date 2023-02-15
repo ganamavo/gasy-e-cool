@@ -12,19 +12,21 @@ import Shops from './Pages/Shops';
 const App = () => {
 
   return (
-    <Box>
-      <Header/>
-      <Box sx={{background: '#f2f3f8'}}>
-      <Routes>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup/>} />
-        <Route
-          path="/"
-          element={<Home/>}
-        />
-        <Route path="/products" element={<Products/>} />
-        <Route path="/online-shops" element={<Shops/>} />
-      </Routes>
+    <Box display='flex'>
+      <Box>
+        <Header />
+      </Box>
+      <Box sx={{ background: '#f2f3f8', width: '100%' }}>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/"
+            element={<Home />}
+          />
+          <Route path="/products" element={<Products />} />
+          <Route path="/online-shops" element={<Shops />} />
+        </Routes>
       </Box>
     </Box>
   );

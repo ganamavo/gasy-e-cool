@@ -8,8 +8,7 @@ const Home = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: "column",
-        height: '100vh'
+        flexDirection: "column"
       }}
     >
       <Typography variant="h2" color='primary' >

@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct, favor
 
   if (product) {
     return (
-      <Card sx={{ maxWidth: 500, flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <Card sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <CardHeader
           title={product.name}
           subheader={product.createdAt}

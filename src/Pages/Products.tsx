@@ -59,8 +59,6 @@ const Products = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        maxWidth: '1488px',
-        marginX: 'auto',
         paddingBottom: 4,
         paddingX: 4
       }}
@@ -78,7 +76,7 @@ const Products = () => {
       <Typography color='text.secondary' marginBottom={2}>
         We allow everyone to post materials, tools, anything they want to share with their friends.
       </Typography>
-      <Box marginTop={3} display='grid' gridTemplateColumns='repeat(3, 1fr)' gap={2}>
+      <Box marginTop={3} display='grid' gridTemplateColumns='repeat(4, 1fr)' gap={2}>
         {!productsError && !!products?.length ?
           products.map((product => {
             return (

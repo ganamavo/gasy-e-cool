@@ -44,8 +44,6 @@ const Shops = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        maxWidth: '1488px',
-        marginX: 'auto',
         paddingBottom: 4,
         paddingX: 4
       }}
@@ -62,7 +60,7 @@ const Shops = () => {
       <Typography color='text.secondary' marginBottom={2}>
         We allow everyone to publish their shop that they want to promote freely.
       </Typography>
-      <Box marginTop={3} display='grid' gridTemplateColumns='repeat(3, 1fr)' gap={2}>
+      <Box marginTop={3} display='grid' gridTemplateColumns='repeat(4, 1fr)' gap={2}>
         {!shopsError && !!shops?.length ?
           shops.map((shop => (
             <ShopCard

@@ -49,7 +49,7 @@ const Login = () => {
 
   return (
     <RootStyle>
-      <Container maxWidth="sm">
+      <Container>
         <ContentStyle>
           {!cookies.loggedInUser && (
             <HeadingStyle {...fadeInUp}>
