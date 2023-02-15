@@ -8,25 +8,29 @@ import Signup from './components/Signup';
 import Home from './Pages/Home';
 import Products from './Pages/Products';
 import Shops from './Pages/Shops';
+import AppBar from './components/SideBar/SideBar';
 
 const App = () => {
 
   return (
     <Box display='flex'>
       <Box>
-        <Header />
+        <AppBar />
       </Box>
-      <Box sx={{ background: '#f2f3f8', width: '100%' }}>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/"
-            element={<Home />}
-          />
-          <Route path="/products" element={<Products />} />
-          <Route path="/online-shops" element={<Shops />} />
-        </Routes>
+      <Box sx={{ width: '100%' }}>
+        <Header/>
+        <Box sx={{ background: '#f2f3f8' }}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/"
+              element={<Home />}
+            />
+            <Route path="/products" element={<Products />} />
+            <Route path="/online-shops" element={<Shops />} />
+          </Routes>
+        </Box>
       </Box>
     </Box>
   );
