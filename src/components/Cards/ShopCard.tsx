@@ -33,13 +33,18 @@ const ShopCard: React.FC<ShopCardProps> = ({ shop, deleteShop, editShop, favorit
         component="img"
         image={shop.image_url}
         alt=""
+        sx={{
+          width: '96%',
+          height: '250px',
+          padding: 1
+        }}
       />
       <CardHeader
         title={shop.name}
         subheader={shop.createdAt}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
+      <CardContent sx={{ paddingTop: 0 }}>
+        <Typography variant="body2" marginBottom={2} color="text.secondary">
           {shop.description}
         </Typography>
         <Typography variant='body2' color="text.secondary">

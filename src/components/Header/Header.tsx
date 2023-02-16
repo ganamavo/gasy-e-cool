@@ -7,13 +7,19 @@ import { setProducts, setShouldRefreshProductsData } from "../../slices/product"
 import { getAllProducts } from "../../actions/product";
 import { setShops } from "../../slices/shop";
 import { getAllShops } from "../../actions/shop";
+import { Shop } from "../Cards/ShopCard";
 
 const Header = () => {
   const products = useSelector((state: { products: { data: Product[] } }) => state.products?.data);
-  const shops = useSelector((state: { shops: { data: any[] } }) => state.shops?.data);
+  const shops = useSelector((state: { shops: { data: Shop[] } }) => state.shops?.data);
   const [searchValue, setSearchValue] = useState('');
   const location = useLocation();
   const dispatch = useDispatch();
+
+  // const filterData = (dataToFilter: Product[] | Shop[], value: string) => {
+  //   const filteredData = dataToFilter.filter((d: Product | Shop) => d.name.toLowerCase().includes(value.toLowerCase()) || d.description.toLowerCase().includes(value.toLowerCase()));
+  //   return filteredData;
+  // }
 
   const onSearch = (event: { target: { value: string } }) => {
     const { value } = event.target;

@@ -40,12 +40,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, deleteProduct, favor
           component="img"
           image={product.image_url}
           alt=""
+          sx={{
+            width: '96%',
+            height: '250px',
+            padding: 1
+          }}
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" marginBottom={2} color="text.secondary">
             {product.description}
           </Typography>
-          <Typography marginTop={2} variant='body2' color="text.secondary">
+          <Typography variant='body2' color="text.secondary">
             <strong>Published by: </strong>{product.owner_first_name} {product.owner_last_name}
           </Typography>
           <Typography variant='body2' color="text.secondary">
