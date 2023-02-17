@@ -44,3 +44,14 @@ export const editSingleProduct = (id, params) => {
     };
 };
 
+export const filterProducts = (appliedFilter) => {
+    return async dispatch => {
+        try {
+            const res = await axios.post('http://localhost:4000/products/filters', appliedFilter);
+            dispatch(setProducts(res.data));
+        } catch (error) {
+            return error
+        }
+    }
+};
+

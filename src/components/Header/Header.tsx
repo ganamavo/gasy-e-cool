@@ -7,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import HistoryIcon from '@mui/icons-material/History';
 import { Product } from "../Cards/ProductCard";
 import { setProducts } from "../../slices/product";
-import { getAllProducts } from "../../actions/product";
+import { getAllProducts, filterProducts } from "../../actions/product";
 import { setShops } from "../../slices/shop";
 import { filterShops, getAllShops } from "../../actions/shop";
 import { Shop } from "../Cards/ShopCard";
@@ -50,9 +50,16 @@ const Header = () => {
     }
   }, [searchValue]);
 
-  const handleShopsFilter = (appliedFilter: AppliedFilter) => {
-    // @ts-ignore
-    dispatch(filterShops(appliedFilter));
+  const handleFilter = (appliedFilter: AppliedFilter) => {
+    if(location === '/products') {
+      delete appliedFilter.category;
+      delete appliedFilter.third_operator;
+      // @ts-ignore
+      dispatch(filterProducts(appliedFilter));
+    } else {
+      // @ts-ignore
+      dispatch(filterShops(appliedFilter));
+    }
   };
 
   const clearFilter = () => {
@@ -122,7 +129,7 @@ const Header = () => {
         open={showAdvancedFiltersModal}
         title={`Filter on ${location === '/products' ? 'product' : 'shops' }`}
         onClose={() => setShowAdvancedFiltersModal(false)}
-        onSave={handleShopsFilter}
+        onSave={handleFilter}
         location={location}
       />
     </Box>

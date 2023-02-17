@@ -32,8 +32,8 @@ export type AppliedFilter = {
     is_updated: boolean;
     first_operator: string;
     second_operator: string;
-    third_operator: string;
-    category: string;
+    third_operator?: string;
+    category?: string;
 }
 
 interface AdvancedFiltersProps {
