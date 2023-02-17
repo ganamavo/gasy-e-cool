@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -16,6 +16,7 @@ import {
 
 import DialogTitle from '../../UI/DialogueTitle';
 import { useSelector } from 'react-redux';
+import { usePrevious } from '../../Hooks/usePrevious';
 
 export type Category = {
     category_name: string;
@@ -43,17 +44,56 @@ interface AdvancedFiltersProps {
     location: string;
 }
 
+interface OperatorButtonsProps {
+    appliedFilter: AppliedFilter;
+    onOrClick: () => void;
+    onAndClick: () => void;
+    operator: 'first_operator' | 'second_operator' | 'third_operator';
+}
+
+const OperatorButtons: React.FC<OperatorButtonsProps> = ({ onOrClick, onAndClick, appliedFilter, operator }) => {
+    return (
+        <Box display='flex' justifyContent='center' alignItems='center'>
+            <ButtonGroup sx={{ height: '30px' }} variant="outlined" aria-label="outlined button group">
+                <Button
+                    onClick={onAndClick}
+                    variant={appliedFilter[operator] === 'AND' ? 'contained' : 'outlined'}
+                    sx={{ padding: 0 }}
+                >
+                    AND
+                </Button>
+                <Button
+                    onClick={onOrClick}
+                    sx={{ padding: 0 }}
+                    variant={appliedFilter[operator] === 'OR' ? 'contained' : 'outlined'}
+                >
+                    OR
+                </Button>
+            </ButtonGroup>
+        </Box>
+    );
+}
+
+const appliedFilterInitialState = {
+    keywords: '',
+    is_favourited: false,
+    is_updated: false,
+    first_operator: 'AND',
+    second_operator: 'AND',
+    third_operator: 'AND',
+    category: ''
+};
+
 const AdvancedFiltersModal: React.FC<AdvancedFiltersProps> = ({ open, onClose, title, onSave, location = '/online-shops' }) => {
     const shopCategories = useSelector((state: { shops: { categories: Category[] } }) => state.shops.categories);
-    const [appliedFilter, setAppliedFilter] = useState({
-        keywords: '',
-        is_favourited: false,
-        is_updated: false,
-        first_operator: 'AND',
-        second_operator: 'AND',
-        third_operator: 'AND',
-        category: ''
-    });
+    const [appliedFilter, setAppliedFilter] = useState(appliedFilterInitialState);
+    const prevOpen = usePrevious(open);
+
+    useEffect(() => {
+        if(!prevOpen) {
+            setAppliedFilter(appliedFilterInitialState);
+        };
+    }, [prevOpen]);
 
     return (
         <Dialog
@@ -93,32 +133,22 @@ const AdvancedFiltersModal: React.FC<AdvancedFiltersProps> = ({ open, onClose, t
                     variant="standard"
                     sx={{ marginBottom: 2 }}
                 />
-                <ButtonGroup sx={{ height: '30px' }} variant="outlined" aria-label="outlined button group">
-                    <Button
-                        onClick={() => {
-                            setAppliedFilter({
-                                ...appliedFilter,
-                                ...{ first_operator: 'AND' }
-                            })
-                        }}
-                        variant={appliedFilter.first_operator === 'AND' ? 'contained' : 'outlined'}
-                        sx={{ padding: 0 }}
-                    >
-                        AND
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            setAppliedFilter({
-                                ...appliedFilter,
-                                ...{ first_operator: 'OR' }
-                            })
-                        }}
-                        sx={{ padding: 0 }}
-                        variant={appliedFilter.first_operator === 'OR' ? 'contained' : 'outlined'}
-                    >
-                        OR
-                    </Button>
-                </ButtonGroup>
+                <OperatorButtons
+                    appliedFilter={appliedFilter}
+                    onAndClick={() => {
+                        setAppliedFilter({
+                            ...appliedFilter,
+                            ...{ first_operator: 'AND' }
+                        });
+                    }}
+                    onOrClick={() => {
+                        setAppliedFilter({
+                            ...appliedFilter,
+                            ...{ first_operator: 'OR' }
+                        });
+                    }}
+                    operator='first_operator'
+                />
                 <FormControl size='small' sx={{ flex: 1, marginY: 2 }} fullWidth>
                     <InputLabel id="select-is-update" data-testid="select-is-update">
                         Is Updated
@@ -140,32 +170,22 @@ const AdvancedFiltersModal: React.FC<AdvancedFiltersProps> = ({ open, onClose, t
                         <MenuItem value={1}>True</MenuItem>
                     </Select>
                 </FormControl>
-                <ButtonGroup sx={{ height: '30px' }} variant="outlined" aria-label="outlined button group">
-                    <Button
-                        onClick={() => {
-                            setAppliedFilter({
-                                ...appliedFilter,
-                                ...{ second_operator: 'AND' }
-                            })
-                        }}
-                        sx={{ padding: 0 }}
-                        variant={appliedFilter.second_operator === 'AND' ? 'contained' : 'outlined'}
-                    >
-                        AND
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            setAppliedFilter({
-                                ...appliedFilter,
-                                ...{ second_operator: 'OR' }
-                            })
-                        }}
-                        sx={{ padding: 0 }}
-                        variant={appliedFilter.second_operator === 'OR' ? 'contained' : 'outlined'}
-                    >
-                        OR
-                    </Button>
-                </ButtonGroup>
+                <OperatorButtons
+                    appliedFilter={appliedFilter}
+                    onAndClick={() => {
+                        setAppliedFilter({
+                            ...appliedFilter,
+                            ...{ second_operator: 'AND' }
+                        });
+                    }}
+                    onOrClick={() => {
+                        setAppliedFilter({
+                            ...appliedFilter,
+                            ...{ second_operator: 'OR' }
+                        });
+                    }}
+                    operator='second_operator'
+                />
                 <FormControl size='small' sx={{ flex: 1, marginY: 2 }} fullWidth>
                     <InputLabel id="select-is-favourited" data-testid="select-is-favourited">
                         Is Favourited
@@ -189,32 +209,22 @@ const AdvancedFiltersModal: React.FC<AdvancedFiltersProps> = ({ open, onClose, t
                 </FormControl>
                 {(location === '/online-shops' && shopCategories?.length) && (
                     <Box>
-                        <ButtonGroup sx={{ height: '30px' }} variant="outlined" aria-label="outlined button group">
-                            <Button
-                                onClick={() => {
-                                    setAppliedFilter({
-                                        ...appliedFilter,
-                                        ...{ third_operator: 'AND' }
-                                    })
-                                }}
-                                variant={appliedFilter.third_operator === 'AND' ? 'contained' : 'outlined'}
-                                sx={{ padding: 0 }}
-                            >
-                                AND
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    setAppliedFilter({
-                                        ...appliedFilter,
-                                        ...{ third_operator: 'OR' }
-                                    })
-                                }}
-                                sx={{ padding: 0 }}
-                                variant={appliedFilter.third_operator === 'OR' ? 'contained' : 'outlined'}
-                            >
-                                OR
-                            </Button>
-                        </ButtonGroup>
+                        <OperatorButtons
+                            appliedFilter={appliedFilter}
+                            onAndClick={() => {
+                                setAppliedFilter({
+                                    ...appliedFilter,
+                                    ...{ third_operator: 'AND' }
+                                });
+                            }}
+                            onOrClick={() => {
+                                setAppliedFilter({
+                                    ...appliedFilter,
+                                    ...{ third_operator: 'OR' }
+                                });
+                            }}
+                            operator='third_operator'
+                        />
                         <FormControl size='small' sx={{ flex: 1, marginY: 2 }} fullWidth>
                             <InputLabel id="select-category" data-testid="select-category">
                                 Category
