@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Stack, TextField, Button } from '@mui/material';
 import { Form, FormikProvider } from "formik";
 import ImageUploading, { ImageListType, ImageType } from "react-images-uploading";
+import { DEFAULT_IMAGE } from '../../constants';
 
 interface EditShopProps {
     formik: any;
@@ -11,7 +12,7 @@ interface EditShopProps {
 
 const EditShopForm: React.FC<EditShopProps> = ({ formik, image, handleImageUpload }) => {
 
-    const { errors, touched, getFieldProps } = formik;
+    const { errors, touched, getFieldProps, values } = formik;
 
     return (
         <FormikProvider value={formik}>
@@ -65,10 +66,15 @@ const EditShopForm: React.FC<EditShopProps> = ({ formik, image, handleImageUploa
                                             <img src={image.dataURL} alt="" width="400" />
                                             <Box className="image-item__btn-wrapper">
                                                 <Button onClick={() => onImageUpdate(index)}>Update</Button>
-                                                <Button color='error' onClick={() => {
-                                                    onImageRemove(index);
-                                                    // TODO: Should remove image when editing
-                                                }}>Remove</Button>
+                                                <Button
+                                                    color='error'
+                                                    onClick={() => {
+                                                        onImageRemove(index);
+                                                        values.image_url = DEFAULT_IMAGE;
+                                                    }}
+                                                >
+                                                    Remove
+                                                </Button>
                                             </Box>
                                         </Box>
                                     ))}

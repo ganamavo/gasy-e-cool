@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Stack, TextField, Button } from '@mui/material';
 import { Form, FormikProvider } from "formik";
 import ImageUploading, { ImageListType, ImageType } from "react-images-uploading";
+import { DEFAULT_IMAGE } from '../../constants';
 
 interface EditProductProps {
    formik: any;
@@ -11,7 +12,7 @@ interface EditProductProps {
 
 const EditProductForm: React.FC<EditProductProps> = ({ formik, image, handleImageUpload }) => {
 
-    const { errors, touched, getFieldProps } = formik;
+    const { errors, touched, getFieldProps, values } = formik;
 
     return (
         <FormikProvider value={formik}>
@@ -65,7 +66,14 @@ const EditProductForm: React.FC<EditProductProps> = ({ formik, image, handleImag
                                             <img src={image.dataURL} alt="" width="400" />
                                             <Box className="image-item__btn-wrapper">
                                                 <Button onClick={() => onImageUpdate(index)}>Update</Button>
-                                                <Button onClick={() => onImageRemove(index)}>Remove</Button>
+                                                <Button 
+                                                    onClick={() => {
+                                                        onImageRemove(index);
+                                                        values.image_url = DEFAULT_IMAGE;
+                                                    }}
+                                                >
+                                                    Remove
+                                                </Button>
                                             </Box>
                                         </Box>
                                     ))}
