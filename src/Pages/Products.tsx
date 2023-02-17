@@ -92,7 +92,7 @@ const Products = () => {
                 favoriteProduct={addToFavorite}
                 editProduct={product => {
                   setShowEditProductModal(true);
-                  setModalData(product);
+                  setModalData({ ...product, ...{ is_updated: true }});
                 }}
               />
             )

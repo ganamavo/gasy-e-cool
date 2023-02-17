@@ -11,7 +11,7 @@ import ConfirmDeletionModal from "../components/Modals/ConfirmDeletion";
 import EditShopModal from "../components/Modals/EditShop";
 
 const Shops = () => {
-  const shops = useSelector((state: { shops: { data: any[] } }) => state.shops?.data);
+  const shops = useSelector((state: { shops: { data: Shop[] } }) => state.shops?.data);
   const refreshShopsData = useSelector((state: { Shops: { shouldRefreshData: boolean } }) => state.Shops?.shouldRefreshData);
   const [shopsError, setShopsError] = useState<string | null>(null);
   const [showEditShopModal, setShowEditShopModal] = useState(false);
@@ -68,7 +68,7 @@ const Shops = () => {
               shop={shop}
               editShop={() => {
                 setShowEditShopModal(true);
-                setModalData(shop);
+                setModalData({ ...shop, ...{ is_updated: true }});
               }}
               deleteShop={(id) => {
                 setModalData(shop);

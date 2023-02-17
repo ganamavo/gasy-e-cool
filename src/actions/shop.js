@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setShops, setShouldRefreshShopsData } from "../slices/shop";
+import { setShopCategories, setShops, setShouldRefreshShopsData } from "../slices/shop";
 
 export const addShop = (params, setError) => {
     return async(dispatch) => {
@@ -17,6 +17,7 @@ export const getAllShops = (setError) => {
         try {
             const res = await axios.get('http://localhost:4000/online-shops/all');
             dispatch(setShops(res.data));
+            dispatch(getShopCategories());
         } catch (error) {
             setError(error?.response?.data?.msg);
         };
@@ -40,6 +41,28 @@ export const deleteShop = (id) => {
             await axios.delete(`http://localhost:4000/online-shops/${id}`);
         } catch (error) {
             return error?.response?.data?.msg;
+        };
+    };
+};
+
+export const filterShops = (appliedFilter) => {
+    return async dispatch => {
+        try {
+            const res = await axios.post('http://localhost:4000/online-shops/filters', appliedFilter);
+            dispatch(setShops(res.data));
+        } catch (error) {
+            return error
+        }
+    }
+};
+
+export const getShopCategories = () => {
+    return async dispatch => {
+        try {
+            const res = await axios.get('http://localhost:4000/online-shops/categories');
+            dispatch(setShopCategories(res.data.data));
+        } catch (error) {
+            return error
         };
     };
 };

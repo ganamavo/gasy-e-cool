@@ -5,7 +5,8 @@ export const shopSlice = createSlice({
     initialState: {
         data: null,
         singleShop: false,
-        shouldRefreshData: false
+        shouldRefreshData: false,
+        categories: []
     },
     reducers: {
         setShops: (state, action) => {
@@ -17,11 +18,14 @@ export const shopSlice = createSlice({
         setSingleShop: (state, action) => {
             state.singleShop = action.payload;
         },
+        setShopCategories: (state, action) => {
+            state.categories = action.payload;
+        }
     }
 });
 
 // this is for dispatch
-export const { setShops, setShouldRefreshShopsData } = shopSlice.actions;
+export const { setShops, setShouldRefreshShopsData, setShopCategories } = shopSlice.actions;
 
 // this is for configureStore
 export default shopSlice.reducer;
